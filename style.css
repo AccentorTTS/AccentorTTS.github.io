@@ -1,0 +1,16 @@
+body {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 1.2em;
+    line-height: 1.5;
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid;
+}

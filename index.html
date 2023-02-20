@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <title>Accentor: An Explicit Lexical Stress Model for TTS Systems</title>
+    </head>
+
+    <body>
+        <h1>Accentor: An Explicit Lexical Stress Model for TTS Systems</h1>
+
+        <h2>Abstract</h2>
+        <p>The accurate placement of word stress is a critical component of the correct pronunciation of words. Contemporary publicly available text-to-speech (TTS) datasets have a relatively narrow coverage of unique words, which causes modern neural TTS systems to synthesize speech that often suffers from lexical stress errors. In this work, we propose an efficient approach for explicitly modeling lexical stress knowledge with a dedicated Accentor neural network. The Accentor is trained separately on a large lexically diverse stress-annotated text corpus, which we automatically compile using an automatic speech recognition system. We demonstrate that the Accentor can be composed with a TTS acoustic model to reliably control the word stress encoded in the generated acoustic features. Experiments show that our approach increases the stress prediction accuracy by a factor of 12 in comparison to other modern TTS systems and improves the naturalness and comprehensibility of the synthesized speech.</p>
+
+        <h2>Controllable acoustic model</h2>
+        <p>The aim of the acoustic model is to process text annotated with stress information and produce acoustic features that respect the stress patterns present in the input. Thereby, the model enables the control of stress placement in the synthesized speech. The following samples demonstrate that the stress information encoded in the acoustic features strictly and accurately follows the lexical stress labels (grave accents) specified in the input text.</p>
+        <table>
+            <tr>
+                <th>Input text</th>
+                <th>Synthesized speech</th>
+            </tr>
+            <tr>
+                <td>`Утринното л`ятно сл`ънце изск`окна вис`око над Ст`ара планин`а.</td>
+                <td><audio controls><source src="samples/control1.wav"></audio></td>
+            </tr>
+            <tr>
+                <td><u>Утр`инното</u> л`ятно сл`ънце <u>`изскокна</u> <u>висок`о</u> над Ст`ара <u>план`ина</u>.</td>
+                <td><audio controls><source src="samples/control2.wav"></audio></td>
+            </tr>
+            <tr>
+                <td>Сег`а к`азвай: какв`о му се п`ада на т`оя б`яс нечест`ив?</td>
+                <td><audio controls><source src="samples/control3.wav"></audio></td>
+            </tr>
+            <tr>
+                <td><u>С`ега</u> <u>казв`ай</u>: какв`о му <u>с`е</u> <u>пад`а</u> на т`оя б`яс <u>неч`естив</u>?</td>
+                <td><audio controls><source src="samples/control4.wav"></audio></td>
+            </tr>
+            <tr>
+                <td>А к`ак стр`астно об`ичаше т`ой да здрав`исва вс`ичките си при`ятели и позн`айници!</td>
+                <td><audio controls><source src="samples/control5.wav"></audio></td>
+            </tr>
+            <tr>
+                <td><u>`А</u> <u>как</u> стр`астно <u>обич`аше</u> т`ой <u>д`а</u> <u>здр`ависва</u> вс`ичките си <u>прият`ели</u> и <u>познайниц`и</u>!</td>
+                <td><audio controls><source src="samples/control6.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>Comparison of our approach with a standard FastPitch model</h2>
+        <p>We compare the composition of the Accentor and the controllable acoustic model (14.2M parameters in total), with a standard FastPitch model with 44.7M parameters. The following samples demonstrate that our approach significantly increases the stress prediction accuracy and improves the naturalness and comprehensibility of the synthesized speech. Each speech sample is accompanied with a copy of the input text annotated with stress marks that indicate the placement of lexical stress in the synthesized speech. Words with pronunciations that contain lexical stress errors are typeset in bold.</p>
+        <table>
+            <tr>
+                <th>Input text</th>
+                <th>FastPitch</th>
+                <th>Our approach</th>
+            </tr>
+            <tr>
+                <td>Гражданин видял фотографията на търсения мъж по телевизията и се обадил.</td>
+                <td>Гр`ажданин вид`ял фотогр`афията на <b>търс`ения</b> м`ъж по телев`изията и се <b>обад`ил</b>.<br><audio controls><source src="samples/compare_fp1.wav"></audio></td>
+                <td>Гр`ажданин вид`ял фотогр`афията на т`ърсения м`ъж по телев`изията и се об`адил.<br><audio controls><source src="samples/compare_our1.wav"></audio></td>
+            </tr>
+            <tr>
+                <td>Тя дали беше права, че не ѝ бяха дали всички права.</td>
+                <td>Т`я д`али б`еше <b>прав`а</b>, че не `ѝ б`яха д`али вс`ички <b>пр`ава</b>.<br><audio controls><source src="samples/compare_fp2.wav"></audio></td>
+                <td>Т`я дал`и б`еше пр`ава, че не `ѝ б`яха д`али вс`ички прав`а.<br><audio controls><source src="samples/compare_our2.wav"></audio></td>
+            </tr>
+            <tr>
+                <td>Сепваше падащо листо или търкулнато от катеричка орехче.</td>
+                <td>С`епваше п`адащо <b>л`исто</b> или <b>търкулн`ато</b> от <b>катер`ичка</b> <b>ор`ехче</b>.<br><audio controls><source src="samples/compare_fp3.wav"></audio></td>
+                <td>С`епваше п`адащо лист`о или търк`улнато от к`атеричка `орехче.<br><audio controls><source src="samples/compare_our3.wav"></audio></td>
+            </tr>
+            <tr>
+                <td>Бъдещият виртуоз личеше от всяка нота.</td>
+                <td>Б`ъдещият вирту`оз <b>л`ичеше</b> от всяка <b>нот`а</b>.<br><audio controls><source src="samples/compare_fp4.wav"></audio></td>
+                <td>Б`ъдещият вирту`оз лич`еше от вс`яка н`ота.<br><audio controls><source src="samples/compare_our4.wav"></audio></td>
+            </tr>
+            <tr>
+                <td>Главният сладкар измайстори огромен сладкиш, на чийто връх стои шейна.</td>
+                <td>Гл`авният <b>сл`адкар</b> <b>изм`айстори</b> огр`омен <b>сл`адкиш</b>, на ч`ийто вр`ъх сто`и <b>ш`ейна</b>.<br><audio controls><source src="samples/compare_fp5.wav"></audio></td>
+                <td>Гл`авният сладк`ар измайстор`и огр`омен сладк`иш, на ч`ийто вр`ъх сто`и шейн`а.<br><audio controls><source src="samples/compare_our5.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>Unclear or blurred lexical stress characteristics with a standard FastPitch model</h2>
+        <p>We noticed deficiencies in the speech synthesized using the standard FastPitch model. It often suffers from unclear or blurred lexical stress characteristics which make the speech sound unnatural and sometimes greatly reduces its comprehensibility. Those defects are not present in the speech synthesized with our approach. The following samples demonstrate such defects. Words with pronunciations that contain unclear lexical stress are typeset in bold.
+        <table>
+            <tr>
+                <th>Input text</th>
+                <th>FastPitch</th>
+                <th>Our approach</th>
+            </tr>
+            <tr>
+                <td>Свидетели на гледката бяха още няколкостотин <b>лондонски</b> любители на театъра.
+</td>
+                <td><audio controls><source src="samples/blur_fp1.wav"></audio></td>
+                <td><audio controls><source src="samples/blur_our1.wav"></audio></td>
+            </tr>
+            <tr>
+                <td>Нападателят е <b>арестуван</b>.</td>
+                <td><audio controls><source src="samples/blur_fp2.wav"></audio></td>
+                <td><audio controls><source src="samples/blur_our2.wav"></audio></td>
+            </tr>
+            <tr>
+                <td><b>Алуминият</b> е включен и в окачването.</td>
+                <td><audio controls><source src="samples/blur_fp3.wav"></audio></td>
+                <td><audio controls><source src="samples/blur_our3.wav"></audio></td>
+            </tr>
+        </table>
+
+<br>
+<br>
+
+    </body>
+</html>
