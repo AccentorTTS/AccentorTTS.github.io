@@ -13,7 +13,7 @@
         <p>The accurate placement of word stress is a critical component of the correct pronunciation of words. Contemporary publicly available text-to-speech (TTS) datasets have a relatively narrow coverage of unique words, which causes modern neural TTS systems to synthesize speech that often suffers from lexical stress errors. In this work, we propose an efficient approach for explicitly modeling lexical stress knowledge with a dedicated Accentor neural network. The Accentor is trained separately on a large lexically diverse stress-annotated text corpus, which we automatically compile using an automatic speech recognition system. We demonstrate that the Accentor can be composed with a TTS acoustic model to reliably control the word stress encoded in the generated acoustic features. Experiments show that our approach increases the stress prediction accuracy by a factor of 12 in comparison to other modern TTS systems and improves the naturalness and comprehensibility of the synthesized speech.</p>
 
         <h2>Controllable acoustic model</h2>
-        <p>The aim of the acoustic model is to process text annotated with stress information and produce acoustic features that respect the stress patterns present in the input. Thereby, the model enables the control of stress placement in the synthesized speech. The following samples demonstrate that the stress information encoded in the acoustic features strictly and accurately follows the lexical stress labels (grave accents) specified in the input text.</p>
+        <p>The aim of the acoustic model is to process text annotated with stress information and produce acoustic features that respect the stress patterns present in the input. Thereby, the model enables the control of stress placement in the synthesized speech. The following samples (two per sentence) demonstrate that the stress information encoded in the acoustic features strictly and accurately follows the lexical stress labels (grave accents) specified in the input text. Underlined words indicate the changes in the lexical stress placement between samples corresponding to the same sentence.</p>
         <table>
             <tr>
                 <th>Input text</th>
@@ -60,7 +60,7 @@
             </tr>
             <tr>
                 <td>Тя дали беше права, че не ѝ бяха дали всички права.</td>
-                <td>Т`я д`али б`еше <b>прав`а</b>, че не `ѝ б`яха д`али вс`ички <b>пр`ава</b>.<br><audio controls><source src="samples/compare_fp2.wav"></audio></td>
+                <td>Т`я дал`и б`еше <b>прав`а</b>, че не `ѝ б`яха д`али вс`ички <b>пр`ава</b>.<br><audio controls><source src="samples/compare_fp2.wav"></audio></td>
                 <td>Т`я дал`и б`еше пр`ава, че не `ѝ б`яха д`али вс`ички прав`а.<br><audio controls><source src="samples/compare_our2.wav"></audio></td>
             </tr>
             <tr>
